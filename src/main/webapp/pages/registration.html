@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+<form th:action="@{/reg-auth/reg}" th:object="${userReg}" method="post">
+    <label><input type="text" th:field="*{nameUserDTO}"/>name</label>
+    <p th:if="${#fields.hasErrors('nameUserDTO')}" th:errors="*{nameUserDTO}">You need to enter more characters</p>
+    <label><input type="text" th:field="*{loginUserDTO}"/>login</label>
+    <p th:if="${#fields.hasErrors('loginUserDTO')}" th:errors="*{loginUserDTO}">You need to enter more characters</p>
+    <label><input type="text" th:field="*{passwordUserDTO}"/>password</label>
+    <p th:if="${#fields.hasErrors('passwordUserDTO')}" th:errors="*{passwordUserDTO}">You need to enter more characters</p>
+    <button>Registration</button>
+</form>
+</body>
+</html>

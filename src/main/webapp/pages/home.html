@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+<a href="/reg-auth/reg">Registration</a>
+<a href="/reg-auth/auth">Authorization</a>
+<a href="/logout/logout">Logout</a>
+
+<div th:if="${session.userAuth}">
+    <div th:text="${'Hello '+ session.userAuth.getName()}"></div>
+    <a th:href="@{/add/post}">Add post</a>
+</div>
+
+<div th:object="${postsList}">
+    <div th:each="item:${postsList}">
+        <a th:href="@{/posts/viewPost/{id}(id=${item.getId()})}" th:text="${item.getTitle()}"/>
+        <input type="hidden" th:value="${item.getId()}">
+        <div th:text="${item.getText()}"/>
+        <div th:text="${item.getTimestamp()}"/>
+    </div>
+</div>
+
+
+</body>
+</html>

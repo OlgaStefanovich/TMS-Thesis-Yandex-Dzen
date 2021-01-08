@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Post</title>
+</head>
+<body>
+<form th:action="@{/posts/viewPost/{id}(id=${postOnPage.getId()})}" th:object="${postOnPage}" method="post">
+    <h3>Post</h3>
+    <div th:text="${postOnPage.getTitle()}"></div>
+    <div th:text="${postOnPage.getText()}"></div>
+    <div th:text="${postOnPage.getTimestamp()}"></div>
+    <div th:text="${postOnPage.getUserName()}"></div>
+    <div th:text="${'Views: '+ postOnPage.getView()}"></div>
+    <div th:if="${session.userAuth}">
+        Likes: <a th:href="@{/addLike/addLike/{id}(id=${postOnPage.getId()})}" th:text="${likes}"/>
+        <input type="hidden" th:value="${postOnPage.getId()}">
+    </div>
+    <div th:unless="${session.userAuth}">
+        <div th:text="${'Likes: ' + likes}"/>
+    </div>
+    <h3>Comments</h3>
+    <div th:object="${listComments}">
+                <div th:each="item :${listComments}">
+                    <h4>
+                        <div th:text="${item.getText()}"></div>
+                    </h4>
+                    <h5>
+                        <div th:text="${item.getDate()}"></div>
+                    </h5>
+                    <h6>
+                        <div th:text="${item.getUserName()}"></div>
+                    </h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${session.userAuth}">
+        <div th:object="${comment}">
+            <input type="text" th:field="*{text}"/>
+            <button>Add comment</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>
